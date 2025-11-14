@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://c51m5eud5bw5i"]
+
+[ext_resource type="Texture2D" uid="uid://cbnctoj3op4ob" path="res://icon.svg" id="1_ttj7r"]
+[ext_resource type="Script" uid="uid://b80anfk1lkigw" path="res://LaserCannon.gd" id="2_vnmmp"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vnmmp"]
+
+[node name="LaserCannon" type="TextureRect"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -46.0
+offset_top = -92.0
+offset_right = 46.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("1_ttj7r")
+expand_mode = 1
+script = ExtResource("2_vnmmp")
+
+[node name="Laser" type="ColorRect" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 5.0
+color = Color(0.813096, 0.29117203, 0.26495054, 1)
+
+[node name="Timer" type="Timer" parent="Laser"]
+wait_time = 0.1
+
+[node name="CollisionNode" type="StaticBody2D" parent="Laser"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Laser/CollisionNode"]
+shape = SubResource("CircleShape2D_vnmmp")
+disabled = true
+
+[connection signal="timeout" from="Laser/Timer" to="." method="_on_timer_timeout"]
